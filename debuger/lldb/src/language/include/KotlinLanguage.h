@@ -14,10 +14,6 @@ public:
   lldb::LanguageType GetLanguageType() const override {
     return static_cast<lldb::LanguageType>(0x26);
   }
-
-  HardcodedFormatters::HardcodedSummaryFinder GetHardcodedSummaries() override;
-
-  HardcodedFormatters::HardcodedSyntheticFinder GetHardcodedSynthetics() override;
   
   static void Initialize();
 

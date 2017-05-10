@@ -32,18 +32,6 @@ Language *KotlinLanguage::CreateInstance(lldb::LanguageType language) {
     return new KotlinLanguage();
   return nullptr;
 }
-
-HardcodedFormatters::HardcodedSummaryFinder
-KotlinLanguage::GetHardcodedSummaries() {
-  static HardcodedFormatters::HardcodedSummaryFinder g_formatters;
-  return g_formatters;
-}
-
-HardcodedFormatters::HardcodedSyntheticFinder
-KotlinLanguage::GetHardcodedSynthetics() {
-  static HardcodedFormatters::HardcodedSyntheticFinder g_formatters;
-  return g_formatters;
-}
 }
 
 namespace lldb {
