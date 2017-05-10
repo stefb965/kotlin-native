@@ -18,12 +18,6 @@ public:
   HardcodedFormatters::HardcodedSummaryFinder GetHardcodedSummaries() override;
 
   HardcodedFormatters::HardcodedSyntheticFinder GetHardcodedSynthetics() override;
-
-  lldb::TypeCategoryImplSP GetFormatters() override;
-
-  LazyBool IsLogicalTrue(ValueObject &valobj, Error &error) override {
-    return LazyBool::eLazyBoolYes;
-  }
   
   static void Initialize();
 

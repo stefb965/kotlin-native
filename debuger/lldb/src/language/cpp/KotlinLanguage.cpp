@@ -1,6 +1,7 @@
 #include <KotlinLanguage.h>
 #include <lldb/Core/PluginManager.h>
 #include <lldb/Utility/ConstString.h>
+#include <lldb/API/SBDebugger.h>
 
 using namespace lldb;
 namespace lldb_private {
@@ -43,13 +44,13 @@ KotlinLanguage::GetHardcodedSynthetics() {
   static HardcodedFormatters::HardcodedSyntheticFinder g_formatters;
   return g_formatters;
 }
-
-lldb::TypeCategoryImplSP
-KotlinLanguage::GetFormatters() {
-  return lldb::TypeCategoryImplSP();
-}
 }
 
+namespace lldb {
+  bool PluginInitialize(SBDebugger) {
+    return true;
+  }
+}
 /*--------------------------------------------------------------------------------
 to compile test-bad 
 # clang++ $(llvm-config-mp-devel --cflags --cxxflags --ldflags --system-libs --libs support) -llldb main.cpp -o plugin-prober
@@ -71,6 +72,6 @@ int main() {
 }
 --------------------------------------------------------------------------------
 plugin compile:
-# clang++ -I/opt/local/libexec/llvm-devel/include -Idebuger/lldb/src/language/include/ debuger/lldb/src/language/cpp/KotlinLanguage.cpp -shared -fpic -o liblldbPluginKotlinLanguage.dylib --std=c++11 -Wl,-undefined,dynamic_lookup -Wl,-flat_namespace
+# clang++ -I/opt/local/libexec/llvm-devel/include -Idebuger/lldb/src/language/include/ debuger/lldb/src/language/cpp/KotlinLanguage.cpp -shared -fpic -o liblldbPluginKotlinLanguage.dylib --std=c++11 -Wl,-undefined,dynamic_lookup -Wl,-flat_namespace  $(llvm-config-mp-devel --ldflags) -llldbTarget
 
 # ./a.out shows problems with binary.*/
