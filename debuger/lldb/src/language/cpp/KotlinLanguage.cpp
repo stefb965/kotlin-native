@@ -52,7 +52,7 @@ KotlinLanguage::GetFormatters() {
 
 /*--------------------------------------------------------------------------------
 to compile test-bad 
-# clang++ $(llvm-config-mp-devel --cflags --cxxflags --ldflags --system-libs --libs support) -llldb main.cpp
+# clang++ $(llvm-config-mp-devel --cflags --cxxflags --ldflags --system-libs --libs support) -llldb main.cpp -o piugin-prober
 
 main.cpp:
 #include <llvm/Support/DynamicLibrary.h>
@@ -71,7 +71,6 @@ int main() {
 }
 --------------------------------------------------------------------------------
 plugin compile:
-# clang++ -I/opt/local/libexec/llvm-devel/include -Idebuger/lldb/src/language/include/ debuger/lldb/src/language/cpp/KotlinLanguage.cpp -shar  19     same path will return the same handle, but the internal reference count for       |19
-ed -fpic -o liblldbPluginKotlinLanguage.dylib --std=c++11 -Wl,-undefined,dynamic_lookup -Wl,-flat_namespace
+# clang++ -I/opt/local/libexec/llvm-devel/include -Idebuger/lldb/src/language/include/ debuger/lldb/src/language/cpp/KotlinLanguage.cpp -shared -fpic -o liblldbPluginKotlinLanguage.dylib --std=c++11 -Wl,-undefined,dynamic_lookup -Wl,-flat_namespace
 
 # ./a.out shows problems with binary.*/
