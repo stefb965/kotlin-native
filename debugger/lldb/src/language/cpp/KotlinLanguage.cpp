@@ -28,7 +28,7 @@ lldb_private::ConstString KotlinLanguage::GetPluginName() {
 uint32_t KotlinLanguage::GetPluginVersion() { return 1; }
 
 Language *KotlinLanguage::CreateInstance(lldb::LanguageType language) {
-  if (static_cast<int>(language) == 0x26)
+  if (language == eLanguageTypeKotlin)
     return new KotlinLanguage();
   return nullptr;
 }

@@ -4,7 +4,7 @@
 #include <lldb/Target/Language.h>
 #include <lldb/Utility/ConstString.h>
 #include <lldb/lldb-private.h>
-
+#include <common.h>
 namespace lldb_private { 
 
 class KotlinLanguage: public Language {
@@ -12,7 +12,7 @@ public:
   KotlinLanguage() = default;
   ~KotlinLanguage() override = default;
   lldb::LanguageType GetLanguageType() const override {
-    return static_cast<lldb::LanguageType>(0x26);
+    return eLanguageTypeKotlin;
   }
   
   static void Initialize();
