@@ -1,5 +1,7 @@
 #include <KotlinLanguageRuntime.h>
 #include <lldb/Core/PluginManager.h>
+#include <lldb/API/SBDebugger.h>
+
 namespace lldb_private {
 lldb_private::LanguageRuntime*
 KotlinLanguageRuntime::CreateInstance(Process *process, lldb::LanguageType language) {
@@ -23,5 +25,11 @@ lldb_private::ConstString KotlinLanguageRuntime::GetPluginName() {
 }
 
 uint32_t KotlinLanguageRuntime::GetPluginVersion() { return 1;}
+}
+
+namespace lldb {
+  bool PluginInitialize(SBDebugger) {
+    return true;
+  }
 }
 
