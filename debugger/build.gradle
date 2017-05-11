@@ -28,5 +28,17 @@ model {
 	             "-Wl,-undefined,dynamic_lookup"
        }
      }
+
+     lldbKotlinLanguageRuntime(NativeLibrarySpec) {
+       sources.cpp.source.srcDirs "lldb/src/runtime/cpp"
+       binaries.all {
+         cppCompiler.args "--std=c++11", "-fPIC", "-I${lldbHome}/include",
+	                  "-I${projectDir}/lldb/src/runtime/include",
+			  "-I${projectDir}/lldb/src/common/include"
+	 linker.args "-L${lldbHome}/lib", "-llldbTarget",
+	             "-Wl,-undefined,dynamic_lookup"
+       }
+     }
+
   }
 }
