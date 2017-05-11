@@ -14,16 +14,18 @@
  * limitations under the License.
  */
 
-include ':dependencies'
-include ':Interop:Indexer'
-include ':Interop:StubGenerator'
-include ':Interop:Runtime'
-include ':InteropExample'
-include ':llvmDebugInfoC'
-include ':backend.native'
-include ':runtime'
-include ':common'
-include ':backend.native:tests'
-include ':tools:helpers'
-include ':tools:gradle-plugin'
-include ':debugger'
+apply plugin: "cpp"
+
+model {
+  components{
+     lldbKotlinLanguage(NativeLibrarySpec) {
+       sources.cpp.source.srcDirs "lldb/src/language/cpp"
+       binaries.all {
+         cppCompiler.args "--std=c++11", "-fPIC", "-I${lldbHome}/include",
+	                  "-I${projectDir}/lldb/src/language/include"
+	 linker.args "-L${lldbHome}/lib", "-llldbTarget",
+	             "-Wl,-undefined,dynamic_lookup"
+       }
+     }
+  }
+}
