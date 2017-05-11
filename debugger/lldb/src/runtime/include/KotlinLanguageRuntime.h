@@ -17,6 +17,7 @@
 #ifndef lldb_KotlinLanguageRuntime_h_
 #define lldb_KotlinLanguageRuntime_h_
 #include "lldb/Breakpoint/BreakpointResolver.h"
+#include "lldb/Symbol/Type.h"
 #include "lldb/Core/Value.h"
 #include "lldb/Target/LanguageRuntime.h"
 #include "lldb/lldb-private.h"
@@ -25,11 +26,11 @@ namespace lldb_private {
 class KotlinLanguageRuntime:public LanguageRuntime {
 public:
   ~KotlinLanguageRuntime() override = default;
-  static lldb_private::LanguageRuntime
-    CreateInstance(Process *process, lldb::LanguageType language);
+  static lldb_private::LanguageRuntime*
+  CreateInstance(Process *process, lldb::LanguageType language);
 
   lldb::LanguageType GetLanguageType() const override {
-    return eLanguageRuntimeKotlin;
+    return eLanguageTypeKotlin;
   }
 
   static void Initialize();
@@ -37,18 +38,19 @@ public:
 
   bool GetObjectDescription(Stream&, ValueObject&) override { return false; }
   bool GetObjectDescription(Stream&, Value&, ExecutionContextScope*) override { return false;}
-  bool GetDynamicTypeAndAddress(ValueObject&, lldb::DynamicValueType, TypeAndOrName&, Address&, Value::ValueType&) { return false; }
+  bool GetDynamicTypeAndAddress(ValueObject&, lldb::DynamicValueType, TypeAndOrName&, Address&, Value::ValueType&) override { return false; }
 
-  bool CouldHaveDynamicValue(ValueObject&) { return false;}
-  TypeAndOrName FixUpDynamicType(const TypeAndOrName&, ValueObject&) override { return (TypeANdOrName());}
+  bool CouldHaveDynamicValue(ValueObject&) override { return false;}
+  TypeAndOrName FixUpDynamicType(const TypeAndOrName&, ValueObject&) override { return (TypeAndOrName());}
   lldb::BreakpointResolverSP CreateExceptionResolver(Breakpoint *, bool, bool) override {
     return lldb::BreakpointResolverSP();
   }
   lldb_private::ConstString GetPluginName() override;
   
   uint32_t GetPluginVersion() override;
-}
+
 private:
-kotlinLanguageRuntime(Process *process):LanguageRuntime(process){}
+  KotlinLanguageRuntime(Process *process):LanguageRuntime(process){}
+};
 }
 #endif

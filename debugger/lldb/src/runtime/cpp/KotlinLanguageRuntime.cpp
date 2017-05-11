@@ -1,5 +1,8 @@
-lldb_private::LanguageRuntime
-CreateInstance(Process *process, lldb::LanguageType language) {
+#include <KotlinLanguageRuntime.h>
+#include <lldb/Core/PluginManager.h>
+namespace lldb_private {
+lldb_private::LanguageRuntime*
+KotlinLanguageRuntime::CreateInstance(Process *process, lldb::LanguageType language) {
   if (language == eLanguageTypeKotlin)
     return new KotlinLanguageRuntime(process);
   return nullptr;
@@ -15,9 +18,10 @@ void KotlinLanguageRuntime::Terminate() {
   PluginManager::UnregisterPlugin(CreateInstance);
 }
 
-lldb_private::ConstString KotlinLanguageRuntime::GetPluginName() override {
+lldb_private::ConstString KotlinLanguageRuntime::GetPluginName() {
   return g_name;
 }
 
 uint32_t KotlinLanguageRuntime::GetPluginVersion() { return 1;}
+}
 
