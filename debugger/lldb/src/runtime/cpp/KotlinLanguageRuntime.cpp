@@ -27,10 +27,3 @@ lldb_private::ConstString KotlinLanguageRuntime::GetPluginName() {
 uint32_t KotlinLanguageRuntime::GetPluginVersion() { return 1;}
 }
 
-namespace lldb {
-  bool PluginInitialize(SBDebugger) {
-    lldb_private::KotlinLanguageRuntime::Initialize();
-    return true;
-  }
-}
-

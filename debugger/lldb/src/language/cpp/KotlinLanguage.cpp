@@ -34,11 +34,6 @@ Language *KotlinLanguage::CreateInstance(lldb::LanguageType language) {
 }
 }
 
-namespace lldb {
-  bool PluginInitialize(SBDebugger) {
-    return true;
-  }
-}
 /*--------------------------------------------------------------------------------
 to compile test-bad 
 # clang++ $(llvm-config-mp-devel --cflags --cxxflags --ldflags --system-libs --libs support) -llldb main.cpp -o plugin-prober

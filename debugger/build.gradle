@@ -18,22 +18,12 @@ apply plugin: "cpp"
 
 model {
   components{
-     lldbKotlinLanguage(NativeLibrarySpec) {
-       sources.cpp.source.srcDirs "lldb/src/language/cpp"
-       binaries.all {
-         cppCompiler.args "--std=c++11", "-fPIC", "-I${lldbHome}/include",
-	                  "-I${projectDir}/lldb/src/language/include",
-			  "-I${projectDir}/lldb/src/common/include"
-	 linker.args "-L${lldbHome}/lib", "-llldbTarget",
-	             "-Wl,-undefined,dynamic_lookup"
-       }
-     }
-
-     lldbKotlinLanguageRuntime(NativeLibrarySpec) {
-       sources.cpp.source.srcDirs "lldb/src/runtime/cpp"
+     lldbKotlinPlugin(NativeLibrarySpec) {
+       sources.cpp.source.srcDirs "lldb/src/runtime/cpp", "lldb/src/language/cpp", "lldb/src/common/cpp"
        binaries.all {
          cppCompiler.args "--std=c++11", "-fPIC", "-I${lldbHome}/include",
 	                  "-I${projectDir}/lldb/src/runtime/include",
+		          "-I${projectDir}/lldb/src/language/include",
 			  "-I${projectDir}/lldb/src/common/include",
 			  "-fno-rtti"
 	 linker.args "-L${lldbHome}/lib", "-llldbTarget", "-llldbHost",
